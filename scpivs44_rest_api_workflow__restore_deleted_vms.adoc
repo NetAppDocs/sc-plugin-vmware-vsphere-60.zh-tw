@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_rest_api_workflow__restore_deleted_vms.html 
+keywords:  
+summary: 若要使用SnapCenter VMware vSphere REST API的VMware vCenter外掛程式執行VM備份還原作業、您必須遵循規定的REST API呼叫順序。 
+---
+= REST API工作流程可還原刪除的VM
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+若要使用SnapCenter VMware vSphere REST API的VMware vCenter外掛程式執行VM備份還原作業、您必須遵循規定的REST API呼叫順序。
+
+對於每個 REST API 、請在 REST API 的正面新增 `\https://<server>:<port>` 、以形成完整的端點。
+
+|===
+| 步驟 | REST API | 註解 
+
+
+| 1 | 前往
+`\http://<vCenter-IP>/mob` | 從VMware託管物件URL尋找虛擬機器UUID。請注意您要還原的VM * uid*。 
+
+
+| 2 | `/4.1/vm/{uuid}/backups` | `Get VM Backups` 取得指定 VM 的備份清單。通過步驟1中的* uid*。請記下您要還原之備份的*備份Id*。 
+
+
+| 3 | `/4.1/vm/backups/{backupId}/
+snapshotlocations` | `Get snapshot locations` 獲得指定備份的 Snapshot 位置。從步驟2傳遞*備份Id*。請注意*快照位置List*資訊。 
+
+
+| 4 | `/4.1/vm/{moref}/backups/
+availableesxhosts` | `Get available ESX Hosts` 取得儲存備份之主機的資訊。請注意*可用的EssxHostsList*資訊。 
+
+
+| 5 | `/4.1/vm/{uuid}/backups/
+{backupId}/restore` | `Restore VM from a backup using uuid or restore a deleted VM` 還原指定的備份。通過步驟1中的* uid*。從步驟2傳遞*備份Id*。傳遞*重述位置*屬性中步驟3和步驟4的資訊。如果 VM 備份是部分備份、請將參數設 `restartVM` 為「 FALSE 」。*附註：*您無法還原為範本的VM。 
+|===

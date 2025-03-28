@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_minimum_ontap_privileges_required.html 
+keywords:  
+summary: 所需的最低限度驗證權限會因您使用的資料保護功能的各個方面而有所不同。ONTAP SnapCenter 
+---
+= 需要權限ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+所需的最低限度驗證權限會因您使用的資料保護功能的各個方面而有所不同。ONTAP SnapCenter
+
+
+NOTE: 從 SnapCenter Plug-in for VMware （ SCV ） 5.0 開始、您需要將 HTTP 和 ONTAPI 類型的應用程式新增為任何具有自訂角色型存取選擇控制閥的 ONTAP 使用者的使用者登入方法。如果無法存取這些應用程式、備份將會失敗。您需要重新啟動選擇控制閥服務、以識別 ONTAP 使用者登入方法的變更。
+
+
+
+== 需要最低ONTAP 的權限
+
+所有SnapCenter 的實體外掛程式都需要下列最低權限。
+
+|===
+
+
+| All Access 命令： ONTAP 8.3 及更新版本所需的最低權限。 
+
+
+| 事件generate-autosup-log 
+
+
+| 工作歷程顯示工作顯示工作停止 
+
+
+| LUN LUN LUN建立LUN刪除LUN igroup新增LUN igroup建立LUN igroup刪除LUN igroup重新命名LUN igroup顯示LUN對應新增報告節點LUN對應建立LUN對應刪除LUN對應移除報告節點LUN對應顯示LUN修改LUN移入Volume LUN離線LUN線LUN持續保留清除LUN重新調整LUN序列大小 LUN顯示 
+
+
+| SnapMirror清單目的地SnapMirror原則附加規則SnapMirror原則修改規則SnapMirror原則移除規則SnapMirror原則顯示SnapMirror還原SnapMirror顯示SnapMirror顯示SnapMirror顯示SnapMirror顯示歷史記錄SnapMirror更新SnapMirror更新ls-set 
+
+
+| 版本 
+
+
+| Volume Clone 建立 Volume Clone 顯示 Volume Clone 分割開始 Volume Clone 分割停止 Volume 建立 Volume 刪除 Volume 銷毀 Volume 檔案複本建立 Volume 檔案 show-disk-usage Volume 離線 Volume 線上 Volume 修改 Volume qtree 建立 Volume qtree 刪除 Volume qtree 修改 Volume qtree 顯示 Volume 限制 Volume 顯示 Volume Snapshot create volume snapshot delete volume snapshot modify volume snapshot rename volume snapshot restore volume snapshot restore volume snapshot volume snapshot show volume unmount 
+
+
+| vserver CIFS vserver CIFS 共用建立 vserver CIFS 共用刪除 vserver CIFS ShadowCopy show vserver CIFS 共用 show vserver CIFS show vserver CIFS show vserver 輸出原則 vserver 輸出原則建立 vserver 輸出原則刪除 vserver 輸出原則規則建立 vserver 輸出原則規則 show vserver 輸出原則 show vserver iSCSI vserver iSCSI 連線 show vserver NVMe 控制器子系統 Vserver NVMe 子系統控制器 show vserver NVMe subsystem map vserver NVMe subsystem map show vserver NVMe subsystem map add vserver NVMe subsystem map remove vserver NVMe subsystem host show vserver NVMe subsystem host add vserver NVMe subsystem host remove vserver NVMe subsystem show vserver NVMe subsystem delete vserver NVMe namespace 顯示網路介面網路介面容錯移轉群組 
+|===
+|===
+| 唯讀命令：ONTAP 要求具備最低權限才能執行更新版本的功能 
+
+
+| 叢集識別顯示網路介面顯示 vserver vserver 對等 vserver show 
+|===
+建立與資料 Vserver 關聯的角色時，您可以忽略 _cluster identity show_ cluster level 命令。
+
+
+NOTE: 您可以忽略有關不支援的 vserver 命令的警告訊息。
+
+
+
+== 其他ONTAP 資訊
+
+* 如果您執行ONTAP 的是版本8.2.x：
++
+您必須以身分登入 `vsadmin` 儲存 VM 、才能擁有適當的 SnapCenter 外掛程式權限、以進行 VMware vSphere 作業。
+
+* 如果您執行ONTAP 的是版本不含更新版本的版本：
++
+您必須以具有上表所列最低權限的角色或角色登入 `vsadmin` 。
+
+* 您必須是叢集管理員、才能建立及管理使用者角色。您可以將使用者與叢集儲存VM或儲存VM建立關聯。
+* 您需要 ONTAP 9.12.1 或更新版本才能使用 SnapMirror 主動式同步功能。
+* 若要使用防竄改快照（ TPS ）功能：
++
+** 您需要適用於 SAN 的 ONTAP 9.13.1 及更新版本
+** 您需要適用於 NFS 的 ONTAP 9.12.1 及更新版本
+
+
+* 對於透過 TCP 和 NVMe over FC 傳輸協定的 NVMe ，您需要有 ONTAP 9 。 10.1 及更新版本。
+
+
+
+NOTE: 從 ONTAP 9.11.1 版開始、與 ONTAP 叢集的通訊是透過 REST API 進行。ONTAP 使用者應已啟用 http 應用程式。不過、如果 ONTAP REST API 發生問題、組態金鑰「 force_ZAPI 」可協助您轉換至傳統的 ZAPI 工作流程。您可能需要使用組態 API 新增或更新此金鑰、並將其設為 true 。如需詳細資訊、請參閱知識庫文章 https://kb.netapp.com/mgmt/SnapCenter/How_to_use_RestAPI_to_edit_configuration_parameters_in_SCV["如何使用 RestAPI 編輯選擇控制閥的組態參數"] 。

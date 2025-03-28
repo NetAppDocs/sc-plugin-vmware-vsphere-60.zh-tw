@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_modify_configuration_default_values.html 
+keywords:  
+summary: '若要改善作業效率、您可以修改 `scbr.override` 組態檔以變更預設值。' 
+---
+= 修改組態預設值
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+若要改善作業效率、您可以修改 `scbr.override` 組態檔以變更預設值。這些值可控制設定、例如在備份期間建立或刪除的VMware快照數量、或是備份指令碼停止執行之前的時間。
+
+ `scbr.override`在支援 SnapCenter 應用程式型資料保護作業的環境中、 SnapCenter Plug-in for VMware vSphere 會使用組態檔案。如果此檔案不存在、則必須從範本檔案建立。

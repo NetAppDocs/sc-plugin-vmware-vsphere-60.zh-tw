@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_create_the_scbr_override_file.html 
+keywords:  
+summary: ' `scbr.override`在支援 SnapCenter 應用程式型資料保護作業的環境中、 SnapCenter Plug-in for VMware vSphere 會使用組態檔案。' 
+---
+= 建立scbr.override組態檔
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ `scbr.override`在支援 SnapCenter 應用程式型資料保護作業的環境中、 SnapCenter Plug-in for VMware vSphere 會使用組態檔案。
+
+. 前往 `/opt/netapp/scvservice/standalone_aegis/etc/scbr/scbr.override-template`。
+. 將檔案複製 `scbr.override-template` 到目錄中的新檔案 `scbr.override` `\opt\netapp\scvservice\standalone_aegis\etc\scbr` 。
+

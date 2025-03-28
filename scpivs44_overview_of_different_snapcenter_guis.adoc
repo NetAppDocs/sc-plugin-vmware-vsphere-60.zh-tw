@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_overview_of_different_snapcenter_guis.html 
+keywords:  
+summary: SnapCenter Plug-in for VMware vSphere 是獨立式外掛程式、與其他 SnapCenter 外掛程式不同。您必須在vCenter中使用VMware vSphere用戶端GUI、才能執行VM、VMDK及資料存放區的所有備份與還原作業。 
+---
+= 不同SnapCenter 的圖形介面總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+在您的需求環境中、您必須使用適當的GUI來執行資料保護和管理作業。SnapCenter
+
+SnapCenter Plug-in for VMware vSphere 是獨立式外掛程式、與其他 SnapCenter 外掛程式不同。您必須在vCenter中使用VMware vSphere用戶端GUI、才能執行VM、VMDK及資料存放區的所有備份與還原作業。您也可以使用Web用戶端GUI儀表板來監控受保護和未受保護的VM清單。對於所有其他 SnapCenter 外掛程式（以應用程式為基礎的外掛程式）作業、例如備份、還原和工作監控、您可以使用 SnapCenter GUI 。
+
+若要保護VM和資料存放區、請使用VMware vSphere用戶端介面。Web 用戶端 GUI 與儲存系統上的 NetApp Snapshot 技術整合。這可讓您在數秒內備份VM和資料存放區、並還原VM、而無需讓ESXi主機離線。
+
+此外、也有管理 GUI 可在 SnapCenter Plug-in for VMware vSphere 上執行管理作業。
+
+下表顯示 SnapCenter GUI 執行的作業。
+
+|===
+| 使用此GUI… | 若要執行這些作業... | 若要存取這些備份... 
+
+
+| vSphere用戶端GUI SnapCenter | VM和資料存放區備份VMDK附加及卸除資料存放區掛載、以及卸載VM和VMDK還原來賓檔案和資料夾還原 | 使用 VMware vSphere 用戶端 GUI 備份 VM 和資料存放區。 
+
+
+| 圖形使用者介面SnapCenter | 備份及還原VM上的資料庫和應用程式、包括保護Microsoft SQL Server、Microsoft Exchange和Oracle的資料庫。資料庫複製 | 使用 SnapCenter GUI 執行備份。 
+
+
+| VMware vSphere管理GUI的VMware外掛程式SnapCenter | 修改網路組態產生支援服務包修改NTP伺服器設定停用/啟用外掛程式 | 不適用 
+
+
+| vCenter GUI | 新增選擇控制器角色至vCenter Active Directory使用者新增資源存取權限至使用者或群組 | 不適用 
+|===
+若要執行VM一致的備份與還原作業、您必須使用VMware vSphere用戶端GUI。雖然可以使用VMware工具執行某些作業、例如掛載或重新命名資料存放區、但這些作業不會登錄SnapCenter 在該儲存庫中、也無法辨識。
+
+SnapCenter 不支援資料庫和 VM 的單一快照。虛擬機器和資料庫的備份必須排程並獨立執行、即使資料庫和虛擬機器位於同一個磁碟區中、也會建立個別的 Snapshot 。應用程式型備份必須使用SnapCenter 還原GUI排程；VM一致的備份必須使用VMware vSphere用戶端GUI排程。

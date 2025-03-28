@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_prescripts_and_postscripts.html 
+keywords:  
+summary: 您可以使用自訂規範和後製指令碼、作為資料保護作業的一部分。這些指令碼可在資料保護工作之前或之後進行自動化。 
+---
+= 簡報與指令碼
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以使用自訂規範和後製指令碼、作為資料保護作業的一部分。這些指令碼可在資料保護工作之前或之後進行自動化。例如、您可以加入指令碼、自動通知您資料保護工作失敗或警告。在您設定預先編寫和後製指令碼之前、您應該先瞭解建立這些指令碼的部分需求。
+
+
+
+== 支援的指令碼類型
+
+支援Perl和Shell指令碼。Shell 指令碼必須以開頭 `!/bin/bash`。(`!/bin/sh` 不支援。）
+
+
+
+== 指令碼路徑位置
+
+簡報和指令碼是由SnapCenter VMware vSphere的VMware vSphere的VMware vCenter外掛程式執行。因此、指令碼必須位於SnapCenter VMware vSphere OVA的VMware vSphere插件中、並具有執行檔權限。
+
+例如： * Perl 指令碼路徑可能是 * Shell 指令 `/support/support/script.pl` 碼路徑 `/support/support/script.sh`
+
+指令碼路徑會在指令碼執行時驗證。
+
+
+
+== 指令碼的指定位置
+
+指令碼是在備份原則中指定。當備份工作開始時、原則會自動將指令碼與要備份的資源建立關聯。
+
+若要指定多個指令碼、請在每個指令碼路徑後按* Enter *、以單獨一行列出每個指令碼。不允許使用分號（；）。您可以指定多個預先編寫和多個後製指令碼。單一指令碼可編碼為預先記錄和附有附註的指令碼、並可呼叫其他指令碼。
+
+
+
+== 執行指令碼時
+
+指令碼會根據為備份階段設定的值來執行。
+
+* 備份階段= pre_backup
++
+在作業的pre_backup階段執行簡報。
+
+
+
+
+NOTE: 如果預先記錄失敗、備份便會成功完成、並傳送警告訊息。
+
+* Backup階段= POST備份或備份階段=失敗的備份
++
+POST指令碼會在備份成功完成後、在作業的POST備份階段中執行、如果備份未成功完成、則會在失敗的備份階段中執行。
+
+
+
+
+NOTE: 如果某個PostScript失敗、備份便會成功完成、並傳送警告訊息。
+
+請檢查下列項目、確認已填入指令碼值： * 用於 Perl 指令碼： * 用於 Shell 指令碼： `/support/support/log_env.log` `/support/support/log_file.log`
+
+
+
+== 傳遞給指令碼的環境變數
+
+您可以在指令碼中使用下表所示的環境變數。
+
+|===
+| 環境變數 | 說明 
+
+
+| `BACKUP_NAME` | 備份名稱。僅在後檔中傳遞的變數。 
+
+
+| `BACKUP_DATE` | 備份日期、格式為僅以 `yyyymmdd` postscripts 傳遞的變數。 
+
+
+| `BACKUP_TIME` | 備份時間、格式為 `hhmmss` 僅在後指令碼中傳遞的變數。 
+
+
+| `BACKUP_PHASE` | 您要執行指令碼的備份階段。有效值為 `PRE_BACKUP, POST_BACKUP, and FAILED_BACKUP`：。以預先編寫和後稿形式傳遞的變數。 
+
+
+| `STORAGE_SNAPSHOTS` | 備份中的儲存快照數量。僅在後檔中傳遞的變數。 
+
+
+| `STORAGE_SNAPSHOT.#` | 其中一個已定義的儲存快照、格式如下：
+`<filer>:/vol/<volume>:<ONTAP-snapshot-name>` 僅在後指令碼中傳遞的變數。 
+
+
+| `VIRTUAL_MACHINES` | 備份中的VM數。以預先編寫和後稿形式傳遞的變數。 
+
+
+| `VIRTUAL_MACHINE.#` | 其中一個已定義的虛擬機器、格式如下：
+`<VM name>[vertical bar]<VM UUID>[vertical bar]<power-state>[vertical bar]<VM snapshot>[vertical bar]<ip-addresses>
+<power-state> has the values POWERED_ON, POWERED_OFF, or
+SUSPENDED`
+`<VM snapshot>` 將值 `true` 或 `false` 變數以預先編寫和後指令碼的形式傳遞。 
+|===
+
+
+== 指令碼逾時
+
+備份指令碼的逾時時間為15分鐘、無法修改。
+
+
+
+== Perl 指令碼範例 #1
+
+下列Perl指令碼範例會在執行備份時列印環境變數。
+
+`#!/usr/bin/perl`
+`use warnings;`
+`use strict;`
+`my $argnum;`
+`my $logfile = '/support/support/log_env.log';`
+`open (FH, '>>', $logfile) or die $!;`
+`foreach (sort keys %ENV) {`
+`print FH "$_ = $ENV{$_}\n";`
+`}`
+`print FH "=========\n";`
+`close (FH);`
+
+
+
+== Perl 指令碼範例 #2
+
+下列範例會列印有關備份的資訊。
+
+`#!/usr/bin/perl`
+`use warnings;`
+`use strict;`
+
+`my $argnum;`
+`my $logfile = '/support/support/log_env.log';`
+`open (FH, '>>', $logfile) or die $!;`
+
+`print FH "BACKUP_PHASE is $ENV{'BACKUP_PHASE'}\n";`
+`print FH "Backup name  $ENV{'BACKUP_NAME'}\n";`
+`print FH "Virtual Machine  $ENV{'VIRTUAL_MACHINES'}\n";`
+`print FH "VIRTUAL_MACHINE # is $ENV{'VIRTUAL_MACHINE.1'}\n";`
+`print FH "BACKUP_DATE is $ENV{'BACKUP_DATE'}\n";`
+`print FH "BACKUP_TIME is $ENV{'BACKUP_TIME'}\n";`
+`print FH "STORAGE_SNAPSHOTS is $ENV{'STORAGE_SNAPSHOTS'}\n";`
+`print FH "STORAGE_SNAPSHOT # is $ENV{'STORAGE_SNAPSHOT.1'}\n";`
+
+`print FH "PWD is $ENV{'PWD'}\n";`
+`print FH "INVOCATION_ID is $ENV{'INVOCATION_ID'}\n";`
+
+`print FH "=========\n";`
+`close (FH);`
+
+
+
+== Shell指令碼範例
+
+
+`===============================================`
+`#!/bin/bash`
+`echo Stage $BACKUP_NAME >> /support/support/log_file.log`
+`env >> /support/support/log_file.log`
+`===============================================`

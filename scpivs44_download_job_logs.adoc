@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_download_job_logs.html 
+keywords:  
+summary: 您可以從SnapCenter VMware vSphere用戶端儀表板的「工作監控」索引標籤下載工作記錄。 
+---
+= 下載工作記錄
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以從SnapCenter VMware vSphere用戶端儀表板的「工作監控」索引標籤下載工作記錄。
+
+如果您在使用VMware vSphere用戶端時遇到非預期的行為、可以使用記錄檔來識別原因並解決問題。
+
+
+NOTE: 保留工作記錄的預設值為30天、保留工作的預設值為90天。超過設定保留時間的工作記錄和工作、每六小時會清除一次。您可以使用組態 `jobs/cleanup` REST API 來修改保留工作和工作記錄的時間長度。您無法修改清除排程。
+
+.步驟
+. 從 vCenter 用戶端捷徑頁面、選取適用於 VMware vSphere （ SCV ）的 SnapCenter 外掛程式。
+. 在選擇控制閥的左側導航窗格中，選擇 *Dashboard * > *Job Monitor* 。
+. 選取「工作監控」標題列中的下載圖示。
++
+您可能需要向右捲動才能看到圖示。
+
++
+您也可以按兩下工作以存取「工作詳細資料」視窗、然後按一下*下載工作記錄*。
+
+
+
+.結果
+工作記錄位於部署 SnapCenter Plug-in for VMware vSphere 的 Linux VM 主機上。預設工作記錄位置為 `/var/log/netapp`。
+
+如果您嘗試下載工作記錄檔，但錯誤訊息中命名的記錄檔已刪除，可能會遇到下列錯誤 `HTTP ERROR 500 Problem accessing /export-scv-logs`：。若要修正此錯誤、請檢查錯誤訊息中所命名檔案的檔案存取狀態和權限、並修正存取問題。

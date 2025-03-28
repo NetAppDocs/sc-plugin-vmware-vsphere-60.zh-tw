@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_how_to_configure_ontap_rbac_for_snapcenter_plug-in_for_vmware_vsphere.html 
+keywords:  
+summary: RBAC僅適用於不一致的VMware應用程式（透過VMDK的應用程式）工作。ONTAP SnapCenter 
+---
+= 如何為ONTAP VMware vSphere設定適用於VMware vSphere的VMware RBAC SnapCenter 外掛程式
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+RBAC僅適用於不一致的VMware應用程式（透過VMDK的應用程式）工作。ONTAP SnapCenter
+
+
+NOTE: 從 SnapCenter Plug-in for VMware （ SCV ） 5.0 開始、您需要將 HTTP 和 ONTAPI 類型的應用程式新增為任何具有自訂角色型存取選擇控制閥的 ONTAP 使用者的使用者登入方法。如果無法存取這些應用程式、備份將會失敗。您需要重新啟動選擇控制閥服務、以識別 ONTAP 使用者登入方法的變更。有關創建或修改登錄帳戶的信息，請參閱 https://docs.netapp.com/us-en/ontap/authentication/config-worksheets-reference.html["系統管理員驗證和RBAC組態工作表"]。
+
+如果您想要搭配 SnapCenter Plug-in for VMware vSphere 使用、則必須在儲存系統上設定 ONTAP RBAC 。在這個範圍內ONTAP 、您必須執行下列工作：
+
+* 建立單一角色。
++
+https://docs.netapp.com/us-en/ontap/concepts/administrator-authentication-rbac-concept.html["系統管理員驗證與RBAC"]
+
+* 建立ONTAP 角色的使用者名稱和密碼（儲存系統認證）。
++
+您需要此儲存系統認證、才能為 SnapCenter Plug-in for VMware vSphere 設定儲存系統。您可以在外掛程式中輸入認證來執行此作業。 每次您使用這些認證登入儲存系統時、系統都會顯示您在 ONTAP 中建立認證時所設定的 SnapCenter 功能集。
+
+
+
+您可以使用系統管理員或root登入來存取SnapCenter 所有的功能；不過、最好使用ONTAP 由效益管理系統提供的RBAC功能來建立一個或多個存取權限有限的自訂帳戶。
+
+如需詳細資訊、請 link:scpivs44_minimum_ontap_privileges_required.html["需要最低ONTAP 的權限"^]參閱。

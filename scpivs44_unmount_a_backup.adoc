@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: scpivs44_unmount_a_backup.html 
+keywords:  
+summary: 當您不再需要存取資料存放區中的檔案時、可以卸載備份。 
+---
+= 卸載備份
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+當您不再需要存取資料存放區中的檔案時、可以卸載備份。
+
+如果備份在 VMware vSphere 用戶端 GUI 中列為掛載、但未列在卸載備份畫面中、則您需要使用 REST API `/backup/{backup-Id}/cleanup` 來清理已移除的資料存放區、然後再次嘗試卸載程序。
+
+如果您嘗試將 NFS 資料存放區的備份複本掛載到儲存 VM （ SVM ）、並將根磁碟區掛載到負載共用鏡像關係中、則可能會遇到防止此問題的錯誤 `You may have reached the maximum number of NFS volumes configured in the vCenter. Check the vSphere Client for any error messages.` 、 瀏覽至 *ESX* > * 管理 * > * 設定 * > * 進階系統設定 * 並變更 NFS 、以變更最大磁碟區設定。 MaxVolumes 值。最大值為256。
+
+.步驟
+. 在 VMware vSphere 用戶端捷徑頁面中、選取 * Storage* 。
+. 在左側瀏覽器窗格中、以滑鼠右鍵按一下資料存放區、然後在下拉式清單中選取 * SnapCenter Plug-in for VMware vSphere * 、然後在次要下拉式清單中選取 * Unmount* 。
++
+
+IMPORTANT: 請確定您選取要卸載的正確資料存放區。否則、您可能會對正式作業工作造成影響。
+
+. 在「*卸載複製的資料存放區*」對話方塊中、選取資料存放區、選取「*卸載複製的資料存放區*」核取方塊、然後按一下「*卸載*」。
+
