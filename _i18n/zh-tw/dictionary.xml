@@ -306,7 +306,6 @@
   <block id="110328d238985c18e0a7947b09b1ff0f" category="summary">SnapCenter Plug-in for VMware vSphere 採用 SSL 加密技術、可與用戶端瀏覽器進行安全通訊。雖然如此一來、便能跨線路啟用加密資料、建立新的自我簽署憑證、或是使用您自己的憑證授權單位（CA）基礎架構或協力廠商CA、確保該憑證對您的環境而言是獨一無二的。</block>
   <block id="8fbcd736aac5b9c6baba8f4db349f50e" category="doc">建立及匯入憑證</block>
   <block id="9668b00eae1748d51afb7f725a15301a" category="inline-link">知識庫文章：如何建立及/或將SSL憑證匯入SnapCenter VMware vSphere的VMware外掛程式</block>
-  <block id="6886be2ac69a368a307204ccfa1e00d9" category="paragraph">如需詳細資訊、請參閱<block ref="bf84a7958c466b4ea912f7e396459ac9" category="inline-link-rx"></block> 。</block>
   <block id="0a4a3719bc7519d1162060e0f0e08f8a" category="doc">建立備份原則</block>
   <block id="a70216f52adf1eb56f9c607820ec2859" category="paragraph">請依照下列指示建立備份原則</block>
   <block id="dbda93db9be6e33e4445e8182fe70414" category="list-text">在選擇控制閥外掛程式的左導覽窗格中、按一下 * 原則 * 、然後選取 * 新原則 * 。</block>
@@ -320,7 +319,6 @@
   <block id="3ce9db2a38b1f87c4fb955db8882eed6" category="list-text">當次要儲存設備（鏡射資料保險箱）上的 Snapshot 數量達到上限時、在備份作業中登錄備份和套用保留的活動會失敗、並顯示下列錯誤：<block ref="30496723c454b60aabe26e3e2608097f" prefix=" " category="inline-code"></block></block>
   <block id="b0131629306c9240f3789f9e15396c3b" category="paragraph">若要修正此問題、請針對次要儲存設備設定 SnapMirror 保留原則、以避免達到快照的上限。</block>
   <block id="585f74b2337dcf50d5f84248087dbc7a" category="inline-link">關於使用角色型存取控制的資訊SnapCenter</block>
-  <block id="6371946f7a59bb407f5608582531db43" category="paragraph">如需系統管理員如何將資源指派給使用者的相關資訊，請參閱<block ref="3c6a9a14d0d13aed475a45101fc3cc00" category="inline-link-rx"></block>。</block>
   <block id="ddad3ed39c11da21249f852ea88d160e" category="list-text">如果您想要VM一致的備份、則必須安裝並執行VMware工具。需要VMware工具來停止虛擬機器。VVol VM不支援VM一致的備份。</block>
   <block id="e90ae72a4d203cde9c1d660d983bec13" category="list-text">SnapMirror 主動式同步可讓業務服務持續運作、即使整個站台故障也沒問題、支援應用程式使用次要複本以透明方式容錯移轉。</block>
   <block id="c2bc8f54778a0e6f72a8fa3f9c96aae7" category="admonition">SnapMirror 主動同步僅支援 VMFS 資料存放區。</block>
@@ -2161,4 +2159,6 @@
   <block id="60894c2f861771ba620b772dde49422e" category="cell">輸入資源群組的名稱。請勿在VM、資料存放區、原則、備份或資源群組名稱中使用下列特殊字元：%&amp;*$#@！\/：*？“ &lt; &gt; - [豎線]；'，和空格。允許使用底線字元（_）。含有特殊字元的VM或資料存放區名稱會被刪減、因此很難搜尋特定備份。在連結模式中、每個 vCenter 都有個別的 SnapCenter 外掛程式、可用於 VMware vSphere 儲存庫。因此、您可以跨vCenter使用重複的名稱。</block>
   <block id="9d9d361ca66b8af5110eb490c5e40c1a" category="paragraph">請勿在VM、資料存放區、原則、備份或資源群組名稱中使用下列特殊字元：&amp;*$#@！\/：*？“ &lt; &gt; - | ; ' ，以及空格。允許使用底線字元（_）。</block>
   <block id="8651a2d0c6ade87f04ae0bca90386289" category="paragraph">%&amp;*$#@！\/：*？“ &lt; &gt; - | ; ' ，以及空格。允許使用底線字元（_）。</block>
+  <block id="04bc8505634cea728bd42022dbbe2763" category="paragraph">如需詳細資訊，請參閱<block ref="3cc65228ae073aa630520717edc687a9" category="inline-link-rx"></block>。</block>
+  <block id="32ac8d4494e62d5a13c33b3927b542bb" category="paragraph">有關管理員如何為使用者指派資源的資訊，請參閱<block ref="d818f211a7449f29082596280ad483fa" category="inline-link-rx"></block>。</block>
 </blocks>
